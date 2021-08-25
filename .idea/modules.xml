@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Web_Service_Teste.iml" filepath="$PROJECT_DIR$/.idea/modules/Web_Service_Teste.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Web_Service_Teste.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Web_Service_Teste.app.iml" />
+    </modules>
+  </component>
+</project>
