@@ -2,10 +2,17 @@ package br.com.webserviceteste.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Formatter;
 
 import br.com.webserviceteste.R;
 import br.com.webserviceteste.model.ListarEstadosAsyncTask;
@@ -19,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
         ListarEstadosAsyncTask task = new ListarEstadosAsyncTask("permissao");
         task.execute();
+
+
+
+
     }
 
     @Override

@@ -8,6 +8,12 @@
     tools:context=".view.MainActivity"
     android:background="@drawable/fd_splash">
 
-
+    <TextView
+        android:id="@+id/teste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        tools:ignore="MissingConstraints"
+        android:text="teste"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
