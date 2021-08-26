@@ -50,10 +50,12 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
 
     }
 
+
+
     @Override
     protected String doInBackground(String... strings) {
 
-        Log.i("APIListar","doInBackground()");
+        Log.i("APIListar", "doInBackground()");
 
         // Gerar o conteúdo para a URL
 
@@ -61,13 +63,13 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
 
             url = new URL(URL_WEB_SERVICE);
 
-        }catch (MalformedURLException e){
+        } catch (MalformedURLException e) {
 
-            Log.i("APIListar","doInBackground() --> "+e.getMessage());
+            Log.i("APIListar", "MalformedURLException --> " + e.getMessage());
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            Log.i("APIListar","doInBackground() --> "+e.getMessage());
+            Log.i("APIListar", "doInBackground() --> " + e.getMessage());
         }
 
         // Gerar uma requisição HTTP - POST - Result será um ArrayJson
@@ -80,16 +82,16 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
             conn.setReadTimeout(READ_TIME_OUT);
             conn.setConnectTimeout(CONNECTION_TIME_OUT);
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("charset","utf-8");
+            conn.setRequestProperty("charset", "utf-8");
 
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
             conn.connect();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            Log.i("APIListar","doInBackground() --> "+e.getMessage());
+            Log.i("APIListar", "HttpURLConnection --> " + e.getMessage());
 
         }
 
@@ -104,7 +106,7 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
             OutputStream stream = conn.getOutputStream();
 
             BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(stream,"utf-8"));
+                    new OutputStreamWriter(stream, "utf-8"));
 
             writer.write(query);
             writer.flush();
@@ -113,11 +115,9 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
 
             conn.connect();
 
+        } catch (Exception e) {
 
-        }catch (Exception e){
-
-            Log.i("APIListar","doInBackground() --> "+e.getMessage());
-
+            Log.i("APIListar", "BufferedWriter --> " + e.getMessage());
 
         }
 
@@ -128,18 +128,45 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
 
             response_code = conn.getResponseCode();
 
+            if (response_code == HttpURLConnection.HTTP_OK) {
 
 
-        }catch (Exception e){
+                InputStream input = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(
 
-            Log.i("APIListar","doInBackground() --> "+e.getMessage());
+                        new InputStreamReader(input)
+
+                );
+
+                StringBuilder result = new StringBuilder();
+
+                String linha = null;
+
+                while ((linha = reader.readLine()) != null) {
+
+                    result.append(linha);
+                }
+
+                return result.toString();
+
+            } else {
+
+                return "HTTP ERRO: " + response_code;
+            }
+
+        } catch (Exception e) {
+
+            Log.i("APIListar", "StringBuilder --> " + e.getMessage());
+
+            return "Exception Erro: " + e.getMessage();
+
+        } finally {
+
+            conn.disconnect();
         }
 
-
-        return "Processamento concluído...";
-
-
     }
+
 
     @Override
     protected void onPostExecute(String result){
@@ -148,6 +175,7 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
 
 
     }
+
 
 
 }
