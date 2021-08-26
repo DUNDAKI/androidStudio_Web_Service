@@ -1,7 +1,6 @@
 package br.com.webserviceteste.model;
 
 import android.net.Uri;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -10,16 +9,13 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.UnknownHostException;
 
 public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
     String ip = "10.0.0.109";
@@ -173,7 +169,28 @@ public class ListarEstadosAsyncTask extends  AsyncTask<String, String, String> {
 
         Log.i("APIListar","onPostExecute()--> Result: "+result);
 
+        try{
+            Estado estado;
+            JSONArray jsonArray = new JSONArray(result);
+            
+            if(jsonArray.length() != 0){
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    estado = new Estado(
+                            jsonObject.getInt("id"),
+                            jsonObject.getString("nome"));
 
+                    Log.i("APIListar", "Estado --> "
+                            + estado.getId() + " - "
+                            +estado.getNome() + " - "
+                            + estado.getSigla() );
+
+                }
+            }
+        }catch (Exception e){
+            Log.i("APIListar", "StringBuilder --> " + e.getMessage());
+
+        }
     }
 
 

@@ -2,25 +2,24 @@ package br.com.webserviceteste.model;
 
 public class Estado {
 
-    private int cod_est; // PK
-    private String sigla;
+    private int id; // PK
     private String nome;
+    private String sigla;
 
     public Estado(){}
 
-    public Estado(int id, String sigla, String nome){
-
-        this.setCod_est(id);
-        this.setSigla(sigla);
-        this.setNome(nome);
+    public Estado(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+     //   this.sigla = sigla;
     }
 
-    public int getCod_est() {
-        return cod_est;
+    public int getId() {
+        return id;
     }
 
-    public void setCod_est(int cod_est) {
-        this.cod_est = cod_est;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSigla() {
